@@ -3,7 +3,7 @@
 import { useAuth } from '@/lib/auth';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { CheckSquare, Home, LayoutGrid, User, Settings, LogOut } from 'lucide-react';
+import { CheckSquare, Home, LayoutGrid, User, LogOut } from 'lucide-react';
 
 export default function Sidebar() {
   const { user, logout } = useAuth();

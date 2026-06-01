@@ -32,12 +32,13 @@ export default function RegisterPage() {
       await register(name, email, password);
       showToast('Account created successfully!');
       router.push('/dashboard');
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string, errors?: Array<{ message: string }> } } };
       const msg =
-        err.response?.data?.message || 'Registration failed. Please try again.';
-      const errors = err.response?.data?.errors;
+        error.response?.data?.message || 'Registration failed. Please try again.';
+      const errors = error.response?.data?.errors;
       if (errors && errors.length > 0) {
-        setFormError(errors.map((e: any) => e.message).join(', '));
+        setFormError(errors.map((e) => e.message).join(', '));
       } else {
         setFormError(msg);
       }

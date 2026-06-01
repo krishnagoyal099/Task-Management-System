@@ -79,6 +79,8 @@ function TasksContent() {
   }, [statusFilter, searchQuery, sortBy, sortOrder, showToast]);
 
   useEffect(() => {
+    // Disable set-state-in-effect warning for initial data fetching
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchTasks(1);
   }, [fetchTasks]);
 
@@ -129,8 +131,9 @@ function TasksContent() {
       }
       closeModal();
       fetchTasks(pagination.page);
-    } catch (err: any) {
-      const msg = err.response?.data?.message || 'Operation failed';
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } } };
+      const msg = error.response?.data?.message || 'Operation failed';
       showToast(msg, 'error');
     } finally {
       setIsSubmitting(false);
@@ -143,8 +146,9 @@ function TasksContent() {
       showToast('Task deleted successfully!');
       setDeletingTaskId(null);
       fetchTasks(pagination.page);
-    } catch (err: any) {
-      showToast(err.response?.data?.message || 'Delete failed', 'error');
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } } };
+      showToast(error.response?.data?.message || 'Delete failed', 'error');
     }
   };
 
@@ -359,7 +363,7 @@ function TasksContent() {
                 <label className="mb-1 block text-sm font-medium text-gray-700">Status</label>
                 <select
                   value={modalStatus}
-                  onChange={(e) => setModalStatus(e.target.value as any)}
+                  onChange={(e) => setModalStatus(e.target.value as 'TODO' | 'IN_PROGRESS' | 'COMPLETED')}
                   className="input-field"
                 >
                   <option value="TODO">To Do</option>

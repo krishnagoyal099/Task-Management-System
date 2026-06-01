@@ -24,9 +24,10 @@ export default function LoginPage() {
       await login(email, password);
       showToast('Logged in successfully!');
       router.push('/dashboard');
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } } };
       const msg =
-        err.response?.data?.message || 'Login failed. Please try again.';
+        error.response?.data?.message || 'Login failed. Please try again.';
       setFormError(msg);
       showToast(msg, 'error');
     } finally {

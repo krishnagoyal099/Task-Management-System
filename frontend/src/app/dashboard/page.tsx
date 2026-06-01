@@ -187,7 +187,7 @@ function DashboardContent() {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-3">Global Oversight</h3>
               <p className="text-lg text-gray-400 leading-relaxed mb-6">
-                You have admin privileges. View and manage all users' tasks globally.
+                You have admin privileges. View and manage all users&apos; tasks globally.
               </p>
             </div>
             <Link href="/tasks" className="w-full block bg-[#ff9a51] text-white text-center text-base font-semibold py-3 rounded-xl hover:bg-[#e88844] transition-colors">
